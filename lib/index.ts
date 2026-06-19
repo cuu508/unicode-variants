@@ -136,6 +136,12 @@ export function* generator(code_points: TCodePoints): Generator<TCodePointObj> {
 			let folded			= asciifold(composed);
 
 
+			// skip if folded is unicode replacement character,
+			// this avoids a lot of unnecessary work on Firefox.
+			if( folded == "�" ){
+				continue;
+			}
+
 			if( folded == composed.toLowerCase() ){
 				continue;
 			}
